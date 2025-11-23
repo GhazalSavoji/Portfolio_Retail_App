@@ -1,0 +1,21 @@
+timestamp,user_id,session_id,ip_address,device_os,device_os_version,device_model,screen_resolution,location_country,location_city,app_language,network_type,battery_level,memory_usage_mb,event_type,event_target,event_value,app_version,session_duration_sec,is_subscribed,user_age,phone_number,push_enabled
+2025-01-13T23:12:43,13457,S-852694,181.246.29.95,Android,9.9,OnePlus 9,1080x1920,Senegal,South Luiston,ru,5G,91,3687,double_tap,profile_image,5,2.6.8,3311,TRUE,51,001-423-901-2346x818,FALSE
+2024-12-24T22:57:29,95977,S-766538,59.155.205.42,Android,7.9,Samsung Galaxy S22,1080x1920,Greenland,Lake Brandonton,ru,5G,44,3521,pinch,search_bar,6,3.3.6,3283,FALSE,40,(437)544-4735,FALSE
+2024-12-22T09:00:26,52758,S-228244,183.205.124.1,iOS,15.1,iPhone 13,1080x1920,Falkland Islands (Malvinas),Julieside,en,3G,29,639,zoom,menu_icon,6,5.4.5,2870,TRUE,73,001-815-298-0574x8189,TRUE
+2025-01-07T02:53:07,53777,S-633216,179.124.111.38,iOS,16.1,iPhone 14 Pro,720x1280,Comoros,North Steven,zh,3G,85,119,long_press,checkout_button,9,4.7.1,332,TRUE,47,(252)814-8186,FALSE
+2024-12-22T15:58:18,6302,S-508537,198.184.172.85,Android,7.6,Motorola Edge,1080x1920,Mayotte,Ernestport,es,5G,40,1789,view,settings_button,7,2.0.8,1694,TRUE,32,-9831,FALSE
+2025-01-04T11:25:33,32032,S-445295,180.41.133.196,Android,13.8,Samsung Galaxy Note20,1080x1920,Senegal,Port Angela,fr,3G,71,2042,long_press,checkout_button,8,3.0.0,3446,FALSE,77,(553)954-3503,TRUE
+2025-01-02T19:17:13,88775,S-995611,63.61.79.118,Android,7.2,Samsung Galaxy S22,1440x2560,France,Kellychester,de,5G,74,672,share,home_page_banner,2,3.3.2,699,TRUE,47,983.890.2637x4372,FALSE
+2025-01-03T01:02:23,65515,S-639814,131.121.116.90,Android,7.2,Samsung Galaxy S22,2160x3840,Saint Lucia,New Ashleychester,ja,5G,2,2112,zoom,menu_icon,7,2.4.8,2232,TRUE,37,335.719.7901x6008,FALSE
+2025-01-01T18:18:20,4782,S-500767,205.118.155.209,iOS,13.9,iPhone SE (2022),1440x2560,Montenegro,New Michelletown,de,4G,11,4319,view,search_bar,8,4.6.7,2332,TRUE,68,653-684-1564,TRUE
+2025-01-11T15:50:15,67787,S-895407,173.44.76.233,iOS,12.2,iPhone 12,1080x1920,Saint Martin,Robinsonmouth,ar,WiFi,69,505,swipe,home_page_banner,3,2.3.9,2250,FALSE,72,001-657-366-4569,FALSE
+2025-01-06T16:35:16,89293,S-823539,209.242.213.110,Android,13.7,OnePlus 9,1536x2048,Russian Federation,Lake Amy,es,4G,67,1496,view,home_page_banner,6,4.3.3,1828,TRUE,27,9827919822,TRUE
+2025-01-02T06:42:56,81435,S-340872,107.144.14.238,iOS,15.6,iPhone SE (2022),1080x1920,Honduras,South Davidchester,de,3G,99,3489,double_tap,profile_image,4,4.9.3,3546,TRUE,26,(912)259-1715,FALSE
+2024-12-21T02:01:55,16644,S-356593,203.235.68.192,iOS,13.9,iPhone 11,720x1280,Benin,Mckenzieborough,en,WiFi,75,2216,like,notification_popup,9,3.5.0,2618,TRUE,24,(260)330-7540x070,TRUE
+2025-01-09T09:31:55,3947,S-453338,55.138.189.239,Android,8.9,Google Pixel 6,1536x2048,Estonia,,ar,WiFi,86,3230,pinch,home_page_banner,2,3.8.6,1089,TRUE,18,(418)533-8584,FALSE
+2025-01-07T02:09:59,93048,S-914207,111.255.80.167,Android,10.4,OnePlus 9,2160x3840,Jordan,Mendozaland,ru,WiFi,33,1997,view,search_bar,3,4.6.0,1212,FALSE,19,001-459-397-1783x04315,FALSE
+2025-01-08T17:43:45,68480,S-845910,166.123.111.210,Android,6,Google Pixel 6,720x1280,French Southern Territories,Parkschester,ar,5G,81,3437,pinch,home_page_banner,g,2.6.6,95,FALSE,25,(899)799-0677x55967,FALSE
+2024-12-17T09:44:49,80458,S-638763,5.53.226.52,Android,10.1,Motorola Edge,1440x2560,Jordan,Huynhborough,ar,4G,35,3121,view,profile_image,4,3.8.6,2200,TRUE,47,(670)893-1873x672,TRUE
+2024-12-24T18:50:44,20255,S-532463,158.154.45.28,Android,10.3,Motorola Edge,1440x2560,Tajikistan,Beckyview,zh,4G,77,1580,share,notification_popup,5,5.4.8,1175,FALSE,53,+1-265-440-9408x65990,FALSE
+2024-12-22T00:21:57,27970,S-164078,137.198.192.152,iOS,12.5,iPhone 13,1536x2048,Dominica,Floresbury,es,WiFi,97,838,long_press,notification_popup,8,3.4.7,1683,TRUE,71,(448)797-2404x38648,TRUE
+2024-12-30T15:40:17,YYstbz,S-656092,51.80.54.80,Android,6.3,Google Pixel 6,1440x2560,Martinique,Lake Jenniferfurt,ar,4G,N8,1465,like,menu_icon,8,2.1.7,3114,FALSE,18,(482)305-1916x4734,TRUE

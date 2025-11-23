@@ -1,0 +1,11 @@
+event_type_id,Time_stamp,session_id,user_id,event_type,event_target,event_value,Invoice
+24153,2025-07-11T14:56:00,S-478206,u-000009-c0,view,thank_you_page,10,C559683
+109416,2025-01-15T11:35:38,S-478206,u-000009-c0,click,notification_popup,10,
+135759,2025-01-15T11:35:38,S-478206,u-000009-c0,click,Add_To_Cart,10,
+5867,2025-04-03T15:07:00,S-136346,u-000009-c0,view,thank_you_page,3,548714
+26040,2025-01-12T04:23:25,S-136346,u-000009-c0,click,Add_To_Cart,3,
+11301,2025-07-11T14:55:00,S-331337,u-000009-c0,view,thank_you_page,10,559682
+56201,2025-01-14T17:22:08,S-331337,u-000009-c0,click,Add_To_Cart,10,
+3052,2025-02-02T17:06:00,S-424347,u-000009-c0,view,thank_you_page,10,543040
+58772,2024-12-20T05:22:35,S-424347,u-000009-c0,click,menu_icon,10,
+153623,2024-12-20T05:22:35,S-424347,u-000009-c0,click,Add_To_Cart,10,
