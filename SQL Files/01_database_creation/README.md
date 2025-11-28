@@ -28,7 +28,9 @@ It includes table creation, data cleaning, data type conversions, primary and fo
 
 - An Entity-Relationship Diagram (ERD) summarizing the **MobileAppRetail_DB** structure is included.  
 - This diagram shows all tables, primary keys, foreign keys, and relationships between schemas (`Users`, `Events`, `Transaction`).  
-- [View ERD PDF here]("GhazalSavoji_Portfo_Data\Images")  
+- Database ERD:
+![Database ERD](https://github.com/GhazalSavoji/Portfolio_Retail_App/blob/main/Images/Logical_ERD_Database.jpg?raw=true)
+
 
 ## Usage
 
