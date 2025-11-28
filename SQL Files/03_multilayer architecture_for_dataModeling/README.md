@@ -48,8 +48,10 @@ The multi-layer architecture is designed with the following layers:
 
 ## ERD References
 
-- Conceptual and Logical ERDs for this multi-layer architecture: ["B:\GhazalSavoji_Portfo_Data\Images\Conceptual ERD galaxy schema.png"]
-["B:\GhazalSavoji_Portfo_Data\Images\logical erd galaxy schema.png"]
+- Conceptual and Logical ERDs for this multi-layer architecture:
+![Conceptual ERD](https://github.com/GhazalSavoji/Portfolio_Retail_App/blob/main/Images/Conceptual%20ERD%20galaxy%20schema.png?raw=true)
+![Logical ERD](https://github.com/GhazalSavoji/Portfolio_Retail_App/blob/main/Images/logical%20erd%20galaxy%20schema.png?raw=true)
+
 ---
 
 ## Usage Instructions
