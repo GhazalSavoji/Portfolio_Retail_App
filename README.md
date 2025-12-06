@@ -92,8 +92,7 @@ All explanations, methodologies, and business logic are intentionally kept insid
     - 05_Forecast_Modeling_Time_Series  # to be done
     - 06_Hypothesis_Tests           # to be done
     - 07_Statistical_Modeling_LTV   # to be done
+  - Python_Scripts/ # to be done
+  - Images/
+  - README.md
 
-└── Python_Scripts/ # to be done
-├── Images/
-│
-└── README.md/
