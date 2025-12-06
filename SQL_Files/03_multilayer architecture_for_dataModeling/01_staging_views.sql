@@ -4,6 +4,8 @@
 -- Includes Sessions, Events, Invoices, and Devices.
 --******************************************
 
+--******************************************
+-- 3.1 Staging Layer
 --=====================================
 -- Staging Sessions
 CREATE OR ALTER VIEW Staging.Stg_Sessions AS
@@ -25,20 +27,24 @@ SELECT
     END AS network_type,
     ip_address
 FROM Events.session;
-GO
 
--- Truncate seconds for session timestamps
-CREATE OR ALTER VIEW Staging.Stg_Sessions_Minute AS
-SELECT *,
-       DATEADD(SECOND, -DATEPART(SECOND, timestamp), timestamp) AS timestamp_minute
-FROM Staging.Stg_Sessions;
-GO
 
 -- Test Staging Sessions
 SELECT TOP 10 * FROM Staging.Stg_Sessions;
 SELECT COUNT(*) AS Stg_Sessions_Count FROM Staging.Stg_Sessions;
 GO
---=====================================
+
+--Create session staging with truncated seconds
+CREATE OR ALTER VIEW Staging.Stg_Sessions_Minute AS
+SELECT *,
+       DATEADD(SECOND, -DATEPART(SECOND, timestamp), timestamp) AS timestamp_minute
+FROM Staging.Stg_Sessions;
+-- Test 
+SELECT TOP 10 * FROM Staging.Stg_Sessions_Minute;
+SELECT COUNT(*) AS Count FROM Staging.Stg_Sessions_Minute;
+GO
+
+--===============================================================
 -- Staging Events
 CREATE OR ALTER VIEW Staging.Stg_Events AS
 SELECT
@@ -48,104 +54,117 @@ SELECT
     TRY_CAST(event_value AS FLOAT) AS event_value,
     session_id,
     Invoice,
-    Time_stamp,
-    user_id,
-    CAST(FORMAT(TRY_CAST(Time_stamp AS DATETIME),'yyyyMMddHHmm') AS BIGINT) AS timestamp_sk
-FROM Events.event_types
-WHERE TRY_CAST(Time_stamp AS DATETIME) IS NOT NULL;
+    Time_stamp,        
+    user_id
+FROM Events.event_types;
 GO
+----------- Staging.Stg_Events_Minute
 
--- Test Staging Events
-SELECT TOP 10 * FROM Staging.Stg_Events;
-SELECT COUNT(*) AS Stg_Events_Count FROM Staging.Stg_Events;
-GO
-
--- Truncate seconds for events
 CREATE OR ALTER VIEW Staging.Stg_Events_Minute AS
-SELECT *,
-       DATEADD(SECOND, -DATEPART(SECOND, Time_stamp), CAST(Time_stamp AS DATETIME)) AS Time_stamp_Minute
-FROM Staging.Stg_Events
-WHERE TRY_CAST(Time_stamp AS DATETIME) IS NOT NULL;
-GO
-
---=====================================
--- Staging Invoices
-CREATE OR ALTER VIEW Staging.Stg_Invoices_UserSession AS
-SELECT DISTINCT
-    e.Invoice,
-    e.user_id,
-    e.session_id,     
-    s.InvoiceDate,
-    s.Country
-FROM Events.event_types e
-JOIN [Transaction].invoice_info s
-    ON e.Invoice = s.Invoice
-WHERE e.Invoice IS NOT NULL;
-GO
-
-CREATE OR ALTER VIEW Staging.Stg_Invoices_User_Minute AS
 SELECT
+    e.*,
+    CASE
+        WHEN TRY_CAST(e.Time_stamp AS DATETIME) IS NOT NULL
+            THEN DATEADD(
+                    SECOND,
+                    -DATEPART(SECOND, TRY_CAST(e.Time_stamp AS DATETIME)),
+                    TRY_CAST(e.Time_stamp AS DATETIME)
+                 )
+        ELSE NULL
+    END AS Time_stamp_Minute,
+    CASE
+        WHEN TRY_CAST(e.Time_stamp AS DATETIME) IS NOT NULL
+            THEN CAST(FORMAT(
+                     DATEADD(
+                        SECOND,
+                        -DATEPART(SECOND, TRY_CAST(e.Time_stamp AS DATETIME)),
+                        TRY_CAST(e.Time_stamp AS DATETIME)
+                     ), 'yyyyMMddHHmm') AS BIGINT)
+        ELSE NULL
+    END AS timestamp_sk
+
+FROM Staging.Stg_Events e;
+GO
+SELECT  FROM Staging.Stg_Events_Minute
+SELECT COUNT(*) FROM Staging.Stg_Events_Minute
+
+--================================================================
+-- Staging Invoices 
+CREATE OR ALTER VIEW Staging.Stg_Invoices AS
+SELECT DISTINCT
     Invoice,
-    user_id,
-    InvoiceDate,
-    DATEADD(SECOND, -DATEPART(SECOND, InvoiceDate), InvoiceDate) AS InvoiceDate_Minute
-FROM Staging.Stg_Invoices_UserSession;
-GO
--- Test
-SELECT TOP 10 * FROM Staging.Stg_Invoices_UserSession;
-SELECT COUNT(*) AS Count FROM Staging.Stg_Invoices_UserSession;
-GO
--- Map invoices to user_id
-CREATE OR ALTER VIEW Staging.Invoice_User_Map AS
-SELECT DISTINCT
-    e.Invoice,
-    e.user_id
-FROM Staging.Stg_Events e
-WHERE e.Invoice IS NOT NULL;
+    Customer_ID,
+    Country,
+    InvoiceDate
+FROM [Transaction].invoice_info;
 GO
 
--- Updated Staging Invoices with user_id
-CREATE OR ALTER VIEW Staging.Stg_Invoices_With_User AS
+-- Minute-level staging view: 
+CREATE OR ALTER VIEW Staging.Stg_Invoices_Minute AS
 SELECT
-    i.Invoice,
-    i.InvoiceItem_ID,
-    i.StockCode,
-    i.Quantity,
-    i.Price,
-    i.S_Description,
-    i.InvoiceDate,
-    i.Country,
-    uim.user_id
-FROM Staging.Stg_Invoices i
-LEFT JOIN Staging.Invoice_User_Map uim
-    ON i.Invoice = uim.Invoice;
+    i.*,
+   
+    CASE
+        WHEN TRY_CAST(i.InvoiceDate AS DATETIME) IS NOT NULL
+            THEN DATEADD(
+                    SECOND,
+                    -DATEPART(SECOND, TRY_CAST(i.InvoiceDate AS DATETIME)),
+                    TRY_CAST(i.InvoiceDate AS DATETIME)
+                 )
+        ELSE NULL
+    END AS InvoiceDate_Minute,
+
+    CASE
+        WHEN TRY_CAST(i.InvoiceDate AS DATETIME) IS NOT NULL
+            THEN CAST(FORMAT(
+                     DATEADD(
+                        SECOND,
+                        -DATEPART(SECOND, TRY_CAST(i.InvoiceDate AS DATETIME)),
+                        TRY_CAST(i.InvoiceDate AS DATETIME)
+                     ), 'yyyyMMddHHmm') AS BIGINT)
+        ELSE NULL
+    END AS timestamp_sk
+FROM Staging.Stg_Invoices i;
 GO
 
--- Map invoices to user_id from events (buyers)
-CREATE OR ALTER VIEW Staging.Invoice_User_Map AS
-SELECT DISTINCT
-    e.Invoice,
-    e.user_id
-FROM Staging.Stg_Events e
-WHERE e.Invoice IS NOT NULL;
-
--- Test:
-SELECT TOP 10 * FROM Staging.Invoice_User_Map;
-SELECT COUNT(*) AS Count FROM Staging.Invoice_User_Map;
+SELECT * FROM Staging.Stg_Invoices_Minute;
+SELECT COUNT(*) AS Count FROM Staging.Stg_Invoices_Minute;
 GO
+SELECT COUNT(*) FROM Staging.Stg_Invoices_Minute
+WHERE 'Algeria' IN (Country)
+--===============================================================
+--Staging invoice items
 
---=====================================
--- Staging Device
+CREATE OR ALTER VIEW Staging.Stg_Inovice_Items AS
+SELECT
+	ii.invoice,
+	s.InvoiceItem_ID,
+	s.StockCode,
+	s.S_Description,
+	TRY_CAST(s.Quantity AS FLOAT) AS Quantity,
+    TRY_CAST(s.Price AS FLOAT) AS Price
+FROM [Transaction].[sales_info] s
+LEFT JOIN [Transaction].[invoice_to_items] ii
+ON s.InvoiceItem_ID=ii.InvoiceItem_ID
+GO
+SELECT * FROM Staging.Stg_Inovice_Items;
+SELECT COUNT(*) AS Count FROM Staging.Stg_Inovice_Items;
+
+--===============================================================
+-- Staging device
 CREATE OR ALTER VIEW Staging.Stg_Device AS
 SELECT
     device_id,
 	screen_resolution,
     user_id,
+    -- Clean app_version to pattern x.y or x.yy
     CASE 
         WHEN app_version LIKE '[0-9]%' AND app_version LIKE '%.%' 
              THEN LEFT(app_version, CHARINDEX('.', app_version) + 2)
         ELSE NULL
     END AS app_version_clean,
+
+    -- Clean OS version: keep only major.minor
     CASE 
         WHEN device_os_version LIKE '[0-9]%.%' 
              THEN LEFT(device_os_version, CHARINDEX('.', device_os_version) + 1)
@@ -154,10 +173,23 @@ SELECT
 	device_model,
     device_os,
     app_language
-FROM [MobileAppRetail_DB].Users.device;
-GO
+FROM [MobileAppRetail_DB2].Users.device;
 
 -- Test Staging.Stg_Device
 SELECT TOP 100 * FROM Staging.Stg_Device;
 SELECT COUNT(*) AS Stg_Device_Count FROM Staging.Stg_Device;
 GO
+--===========================================
+-- staging iso countries
+CREATE TABLE Staging.Stg_ISO_Countries (
+    country_name NVARCHAR(200)
+	)
+BULK INSERT Staging.Stg_ISO_Countries
+FROM 'C:\TempTables\countries.csv'
+WITH (
+    FIRSTROW = 1,
+    FIELDTERMINATOR = ',',       -- one column
+    ROWTERMINATOR = '\n',
+    CODEPAGE = '65001',          -- UTF-8
+    TABLOCK
+);
