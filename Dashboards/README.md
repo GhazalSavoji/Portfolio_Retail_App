@@ -74,5 +74,5 @@ The dashboards consist of **five main views**, each visualizing key business met
 
 The complete Power BI dashboards report is available in this folder as:
 
-- `Dashboards_PDF.pdf`
+- `MobileAppRetail_PowerBI.pdf`
 
